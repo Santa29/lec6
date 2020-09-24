@@ -43,11 +43,11 @@ aria-expanded="false">
 </a>
 <div class="dropdown-menu dropdown-menu-right"
 aria-labelledby="userMenu">
-<a class="dropdown-item" href="">Change password</a>
+<a class="dropdown-item" href="{% url 'password_change' %}">Change password</a>
 <div class="dropdown-divider"></div>
-<a class="dropdown-item" href="">Log Out</a>
+<a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
 <div class="dropdown-divider"></div>
-<a class="dropdown-item" href="">Password Reset</a>
+<a class="dropdown-item" href="{% url 'password_reset' %}">Password Reset</a>
 </div>
 </li>
 </ul>
