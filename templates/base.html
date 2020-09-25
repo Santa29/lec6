@@ -21,7 +21,7 @@ crossorigin="anonymous">
     {% if user.is_authenticated %}
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a href="">
+          <a href="{% url 'post_new' %}">
             + New
           </a>
         </li>
