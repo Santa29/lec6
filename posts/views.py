@@ -4,6 +4,7 @@ from .models import Post
 
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 
 class PostListView(LoginRequiredMixin,ListView):
     model = Post 
@@ -17,11 +18,23 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
     fields = ('title', 'body')
     login_url = 'login'
 
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.author != self.request.user:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
     template_name = "post_delete.html"
     success_url = reverse_lazy('post_list')
     login_url = 'login'
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if obj.author != self.request.user:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
 class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
